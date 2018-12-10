@@ -10,6 +10,7 @@ class App extends Component {
         <header className="App-header">
                   <Title />
                   <PostAdBtn />
+                  <br />
                   <AdsList />
         </header>
       </div>
@@ -21,8 +22,7 @@ class Title extends Component {
   render() {
     return (
       <div className="SomeText">
-        <h1>Ad Postings!</h1>
-        <hr></hr>
+        <h1>Ad Postings</h1>
       </div>
     );
   }
