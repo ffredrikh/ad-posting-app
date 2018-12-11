@@ -7,8 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-// Tmp testdata
-//import GetAdsData from './TestData';
+import PostAd from './PostAd';
 
 const styles = theme => ({
     root: {
@@ -32,28 +31,35 @@ const styles = theme => ({
     }
 
     componentDidMount() {
+        this.fetchData();
+      }
+
+    fetchData = () => {
         fetch("https://localhost:5001/api/ads")
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                items: result             
-              });
-            },
-       
-            // let ads = GetAdsData();
-                       
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          ); 
+    .then(res => res.json())
+    .then(
+    (result) => {
+        this.setState({
+        isLoaded: true,
+        items: result             
+        });
+    },
+
+    // Note: it's important to handle errors here
+    // instead of a catch() block so that we don't swallow
+    // exceptions from actual bugs in components.
+    (error) => {
+        this.setState({
+        isLoaded: true,
+        error
+        });
+    }
+    ); 
+}
+
+      handler = () => {
+        console.log('updated');
+        this.fetchData();
       }
 
       render() {
@@ -64,17 +70,23 @@ const styles = theme => ({
         const listItems = items.map((ad) =>
         <Items key={ad.id} value={this.props} adinfo={ad} />);
 
-        console.log(this.state);
-
         if (error) {
-          return <div>Error: {error.message}</div>;
+          return (
+            <>
+            <PostAd handler = {this.handler}/> 
+            <div>Error: {error.message}</div>
+            </>);
         } else if (!isLoaded) {
           return <div>Loading...</div>;
         } else {
           return (
+            <>
+            <PostAd handler = {this.handler}/>
+            <br />
             <List className={classes.root}>
-          {listItems}
+            {listItems}
             </List>
+            </>
           );
         }
       }

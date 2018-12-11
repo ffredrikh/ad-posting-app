@@ -7,23 +7,31 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default class PostAd extends React.Component {
-  state = {
-    open: false,
-    title: '',
-    text: '',
-    category: '',
-  };
 
-  handleClickOpen = () => {
+export default class PostAd extends React.Component {
+    constructor(props){
+        super(props);
+        
+        this.state = {
+            open: false,
+            title: '',
+            text: '',
+            category: '',
+        };
+    }
+    
+    
+
+  handleClickOpen = (props) => {
     this.setState({ open: true });
   };
 
   handleClose = () => {
     this.setState({ open: false });
+    this.props.handler();
   };
   
-  handleOk = () => {
+  handleOk = (event) => {
     fetch('https://localhost:5001/api/ads', {
     method: 'POST',
     mode: "cors",
@@ -36,7 +44,15 @@ export default class PostAd extends React.Component {
         text: this.state.text,
         category: this.state.category,
         })
-    })
+    }).then(
+        (result) => {
+            console.log(result);
+            this.handleClose();
+        },
+        (error) => {
+            this.handleClose();
+        }
+      ); 
   };
 
   handleInputChange = (event) => {
@@ -51,6 +67,7 @@ export default class PostAd extends React.Component {
   };
 
   render() {
+    
     return (
       <div>
         <Button variant="outlined" onClick={this.handleClickOpen}>new ad posting!</Button>
@@ -106,3 +123,4 @@ export default class PostAd extends React.Component {
     );
   }
 }
+

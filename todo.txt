@@ -1,0 +1,4 @@
+fix list update after added entry
+close modal after ok - confirmation?
+delete ad?
+edit ad?
