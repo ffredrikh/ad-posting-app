@@ -1,4 +1,5 @@
-fix list update after added entry
-close modal after ok - confirmation?
-delete ad?
+
+close modal after ok - confirmation - error or success
+delete modal - user sure? - confirmation - error or success
 edit ad?
+graphgl
